@@ -29,8 +29,7 @@ set up the admin user and start the application! By default, the application wil
 ### Manual docker deployment
 
 The easiest way to use and deploy this application is using Docker.
-You can grab the latest version from this GitHub or use a certain tag by viewing the [ghcr versions page]
-(https://github.com/users/WesleyKlop/packages/container/vote-system/versions).
+You can grab the latest version from this GitHub or use a certain tag by viewing the [ghcr versions page](https://github.com/users/WesleyKlop/packages/container/vote-system/versions).
 
 ### Prerequisites
 
