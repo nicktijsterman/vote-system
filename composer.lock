@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b3adce931ab57f1b53c1f75389ddfd5",
+    "content-hash": "ee589281d3c34b04f5ae2baa5800993b",
     "packages": [
         {
             "name": "bepsvpt/secure-headers",
@@ -308,12 +308,12 @@
             "version": "v0.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/clue/php-redis-protocol.git",
+                "url": "https://github.com/clue/redis-protocol.git",
                 "reference": "271b8009887209d930f613ad3b9518f94bd6b51c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/php-redis-protocol/zipball/271b8009887209d930f613ad3b9518f94bd6b51c",
+                "url": "https://api.github.com/repos/clue/redis-protocol/zipball/271b8009887209d930f613ad3b9518f94bd6b51c",
                 "reference": "271b8009887209d930f613ad3b9518f94bd6b51c",
                 "shasum": ""
             },
@@ -2660,12 +2660,12 @@
             "version": "2.58.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/briannesbitt/Carbon.git",
+                "url": "https://github.com/CarbonPHP/carbon.git",
                 "reference": "97a34af22bde8d0ac20ab34b29d7bfe360902055"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/97a34af22bde8d0ac20ab34b29d7bfe360902055",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/97a34af22bde8d0ac20ab34b29d7bfe360902055",
                 "reference": "97a34af22bde8d0ac20ab34b29d7bfe360902055",
                 "shasum": ""
             },
@@ -7460,12 +7460,12 @@
             "version": "v3.6.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/barryvdh/laravel-debugbar.git",
+                "url": "https://github.com/fruitcake/laravel-debugbar.git",
                 "reference": "b96f9820aaf1ff9afe945207883149e1c7afb298"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/b96f9820aaf1ff9afe945207883149e1c7afb298",
+                "url": "https://api.github.com/repos/fruitcake/laravel-debugbar/zipball/b96f9820aaf1ff9afe945207883149e1c7afb298",
                 "reference": "b96f9820aaf1ff9afe945207883149e1c7afb298",
                 "shasum": ""
             },
@@ -9194,12 +9194,12 @@
             "version": "5.2.12",
             "source": {
                 "type": "git",
-                "url": "https://github.com/justinrainbow/json-schema.git",
+                "url": "https://github.com/jsonrainbow/json-schema.git",
                 "reference": "ad87d5a5ca981228e0e205c2bc7dfb8e24559b60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/ad87d5a5ca981228e0e205c2bc7dfb8e24559b60",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/ad87d5a5ca981228e0e205c2bc7dfb8e24559b60",
                 "reference": "ad87d5a5ca981228e0e205c2bc7dfb8e24559b60",
                 "shasum": ""
             },
@@ -12473,12 +12473,12 @@
             "version": "10.3.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symplify/easy-coding-standard.git",
+                "url": "https://github.com/ecsphp/ecs.git",
                 "reference": "c93878b3c052321231519b6540e227380f90be17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/c93878b3c052321231519b6540e227380f90be17",
+                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/c93878b3c052321231519b6540e227380f90be17",
                 "reference": "c93878b3c052321231519b6540e227380f90be17",
                 "shasum": ""
             },
@@ -12941,9 +12941,9 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-json": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
