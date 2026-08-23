@@ -20,13 +20,22 @@ x-app-environment: &app-environment
   DB_PASSWORD: ${POSTGRES_PASSWORD:-votesystem}
   DB_FOREIGN_KEYS: 'true'
   LOG_CHANNEL: stack
-  BROADCAST_DRIVER: pusher
+  BROADCAST_DRIVER: reverb
   CACHE_DRIVER: file
   QUEUE_CONNECTION: sync
   SESSION_DRIVER: database
   SESSION_LIFETIME: '120'
-  PUSHER_APP_ID: vote-system
-  PUSHER_APP_KEY: vote-system
+  REVERB_APP_ID: vote-system
+  REVERB_APP_KEY: vote-system
+  # Server-to-server: vote-system reaches Reverb via the internal docker
+  # network, not the published host port below.
+  REVERB_HOST: vote-system-ws
+  REVERB_PORT: '8080'
+  REVERB_SCHEME: http
+  # Browser-facing: the externally published port (see vote-system-ws's
+  # ports: below) - override REVERB_PUBLIC_SCHEME/HOST for a real domain/TLS.
+  REVERB_PUBLIC_PORT: '6001'
+  REVERB_PUBLIC_SCHEME: ${REVERB_PUBLIC_SCHEME:-http}
   TRUSTED_PROXY_LIST: ${TRUSTED_PROXY_LIST:-}
 
 services:
@@ -61,14 +70,16 @@ services:
     command:
       - php
       - artisan
-      - websockets:serve
+      - reverb:start
+      - --host=0.0.0.0
+      - --port=8080
     environment: *app-environment
     volumes:
       - secrets:/app/storage/secrets
     networks:
       - net
     ports:
-      - '6001:6001'
+      - '6001:8080'
     depends_on:
       postgres:
         condition: service_healthy

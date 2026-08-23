@@ -1,2 +1,2 @@
 export const APP_LOCALE = document.documentElement.lang
-export const PUSHER_CONFIG = window.__PUSHER_CONFIG__
+export const REVERB_CONFIG = window.__REVERB_CONFIG__

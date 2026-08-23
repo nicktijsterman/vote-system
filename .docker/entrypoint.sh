@@ -4,7 +4,7 @@ set -e
 # Non-secret config is supplied via environment: in docker-compose.yml (or -e
 # flags for a manual `docker run`), with no file required to pre-exist on the
 # host. The handful of secrets that must be generated once and then persist
-# across container recreation - APP_KEY, VS_ADMIN_PASSWORD, PUSHER_APP_SECRET -
+# across container recreation - APP_KEY, VS_ADMIN_PASSWORD, REVERB_APP_SECRET -
 # live on a named volume shared by the web and websockets containers instead,
 # since a bind-mounted .env that doesn't already exist on the host causes
 # Docker to silently mount an empty directory in its place, breaking startup.
@@ -51,13 +51,13 @@ set_secret() {
         echo "$generated_password" > "${SECRETS_DIR}/.admin-password-just-generated"
     fi
 
-    if [ -z "$PUSHER_APP_SECRET" ]; then
-        set_secret PUSHER_APP_SECRET "$(random_value 32)"
+    if [ -z "$REVERB_APP_SECRET" ]; then
+        set_secret REVERB_APP_SECRET "$(random_value 32)"
     fi
 ) 200>"$LOCK_FILE"
 
 source "$SECRETS_FILE"
-export APP_KEY VS_ADMIN_PASSWORD PUSHER_APP_SECRET
+export APP_KEY VS_ADMIN_PASSWORD REVERB_APP_SECRET
 
 if [ "$1" == "artisan" ]; then
     exec docker-php-entrypoint php "$@"

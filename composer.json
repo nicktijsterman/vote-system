@@ -8,28 +8,28 @@
     ],
     "license": "GPL-3.0-or-later",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-json": "*",
-        "bepsvpt/secure-headers": "^7.0",
-        "beyondcode/laravel-websockets": "^2.0@beta",
+        "bepsvpt/secure-headers": "^9.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^9.0",
+        "laravel/framework": "^10.0",
+        "laravel/reverb": "^1.0",
         "laravel/tinker": "^2.6",
-        "laravel/ui": "^3.0",
+        "laravel/ui": "^4.0",
         "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.3",
+        "barryvdh/laravel-debugbar": "^3.9",
         "barryvdh/laravel-ide-helper": "^2.9",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^6.0",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^10.0",
         "psalm/plugin-laravel": "^2.0",
         "rector/rector": "^0.12.3",
-        "spatie/laravel-ignition": "^1.0",
+        "spatie/laravel-ignition": "^2.0",
         "symplify/easy-coding-standard": "^10.0",
-        "vimeo/psalm": "^4"
+        "vimeo/psalm": "^5"
     },
     "config": {
         "optimize-autoloader": true,

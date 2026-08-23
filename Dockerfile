@@ -16,7 +16,7 @@ FROM composer:2 as composer-bin
 # builds - see git history for details). Un-comment --ignore-platform-reqs
 # again only if you have a specific reason composer's own version check is
 # wrong; it was previously used to paper over exactly this kind of drift.
-FROM php:8.1-cli as back-builder
+FROM php:8.2-cli as back-builder
 COPY --from=composer-bin /usr/bin/composer /usr/bin/composer
 # maatwebsite/excel's phpoffice/phpspreadsheet dependency declares ext-gd as
 # required (used for chart/image handling in some export formats); without it
@@ -37,7 +37,7 @@ COPY . .
 RUN composer dump-autoload -a
 
 # Build app image
-FROM php:8.1-apache
+FROM php:8.2-apache
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 RUN install-php-extensions opcache pgsql pdo_pgsql bcmath mysqli pdo_mysql pcntl gd zip

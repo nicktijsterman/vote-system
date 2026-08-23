@@ -1,6 +1,8 @@
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
-import { PUSHER_CONFIG } from './constants'
+import { REVERB_CONFIG } from './constants'
+
+window.Pusher = Pusher
 
 /** @type {?Echo} */
 let instance = null
@@ -10,21 +12,19 @@ let instance = null
  */
 const getConnection = () => {
     if (!instance) {
-        const config = PUSHER_CONFIG
+        const config = REVERB_CONFIG
         if (!config) {
             throw `Missing websocket configuration`
         }
         instance = new Echo({
-            broadcaster: 'pusher',
-            client: new Pusher(config.PUSHER_APP_KEY, {
-                wsHost: window.location.hostname,
-                statsHost: window.location.hostname,
-                httpHost: window.location.hostname,
-                wsPort: 6001,
-                forceTLS: window.location.protocol === 'https:',
-                disableStats: true,
-                authEndpoint: config.PUSHER_AUTH_ROUTE,
-            }),
+            broadcaster: 'reverb',
+            key: config.REVERB_APP_KEY,
+            wsHost: config.REVERB_HOST,
+            wsPort: config.REVERB_PORT,
+            wssPort: config.REVERB_PORT,
+            forceTLS: config.REVERB_SCHEME === 'https',
+            enabledTransports: ['ws', 'wss'],
+            authEndpoint: config.PUSHER_AUTH_ROUTE,
         })
     }
     return instance

@@ -11,12 +11,6 @@ use Illuminate\Support\Str;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Default value shipped in .env.example - anyone who deploys without
-     * changing it leaves the websockets trigger API unauthenticated.
-     */
-    private const PLACEHOLDER_PUSHER_SECRET = 'enter-some-random-data-string-here';
-
-    /**
      * Register any application services.
      *
      * @return void
@@ -38,11 +32,10 @@ class AppServiceProvider extends ServiceProvider
         // is a safety net for bare-metal/non-Docker deployments.
         if (
             app()->environment('production') &&
-            config('broadcasting.connections.pusher.secret') === self::PLACEHOLDER_PUSHER_SECRET
+            blank(config('broadcasting.connections.reverb.secret'))
         ) {
             Log::critical(
-                'PUSHER_APP_SECRET is still set to the example placeholder value from .env.example. ' .
-                'The websockets trigger API is unauthenticated against anyone who knows this value - set a real random secret.'
+                'REVERB_APP_SECRET is not set. The websockets trigger API is unauthenticated - set a real random secret.'
             );
         }
 
