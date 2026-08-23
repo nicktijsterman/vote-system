@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
  * Voter area
  */
 Route::get('/', [Voter\LoginController::class, 'showLoginForm'])->name('voter.index');
-Route::post('/', [Voter\LoginController::class, 'login'])->name('voter.login');
+Route::post('/', [Voter\LoginController::class, 'login'])->middleware('throttle:login')->name('voter.login');
 Route::get('/exit', [Voter\LoginController::class, 'logout'])->name('voter.logout');
 
 Route::middleware('auth:web-voter')->group(function () {
@@ -32,7 +32,7 @@ Route::middleware('auth:web-voter')->group(function () {
  * Admin area
  */
 Route::get('/admin/login', [Admin\LoginController::class, 'showLoginForm'])->name('admin.login.show');
-Route::post('/admin/login', [Admin\LoginController::class, 'login'])->name('admin.login.update');
+Route::post('/admin/login', [Admin\LoginController::class, 'login'])->middleware('throttle:login')->name('admin.login.update');
 Route::get('/admin/logout', [Admin\LoginController::class, 'logout'])->name('admin.login.logout');
 
 Route::prefix('/admin')->middleware('auth:web-admin')->name('admin.')->group(function () {

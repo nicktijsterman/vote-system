@@ -59,5 +59,14 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', fn (Request $request) => Limit::perMinute(60)->by(
             optional($request->user())->id ?: $request->ip()
         ));
+
+        // Laravel's ThrottlesLogins (used by AuthenticatesUsers) keys its lockout by the
+        // submitted username value plus IP. For the voter guard, the "username" is the
+        // token being guessed, so a different guess each time gets a fresh bucket and
+        // ThrottlesLogins never kicks in against horizontal token enumeration. This
+        // limiter is keyed by IP alone to close that gap.
+        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(10)->by(
+            $request->ip()
+        ));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class ManageUserCommand extends Command
 {
@@ -44,6 +45,21 @@ class ManageUserCommand extends Command
             config('vote-system.admin_password') ?:
             self::DEFAULT_ADMIN_PASSWORD;
 
+        // Deployments driven by .docker/entrypoint.sh never reach this branch: the
+        // entrypoint generates and persists VS_ADMIN_PASSWORD into .env before this
+        // command runs. This is a safety net for non-Docker/bare-metal deployments
+        // that call this command directly without ever setting VS_ADMIN_PASSWORD.
+        if (
+            config('app.env') === 'production' &&
+            $password === self::DEFAULT_ADMIN_PASSWORD
+        ) {
+            $password = Str::random(20);
+            $this->warn(
+                "No admin password was configured (VS_ADMIN_PASSWORD). Generated one instead of using the insecure default:\n{$password}\n" .
+                'This is NOT persisted - set VS_ADMIN_PASSWORD in your environment or it will change on every run of this command.'
+            );
+        }
+
         $user = User::updateOrCreate(
             ['name' => $name],
             ['password' => Hash::make($password)]
@@ -51,21 +67,7 @@ class ManageUserCommand extends Command
         $this->info(
             'Created or updated the admin user with name: ' . $user->name
         );
-        if ($this->shouldShowProductionWarning($name, $password)) {
-            $this->warn(
-                "Application running in production but is using the default credentials!!!\nWhat are you doing!?"
-            );
-        }
 
         return 0;
-    }
-
-    private function shouldShowProductionWarning(
-        string $name,
-        string $password
-    ): bool {
-        return config('app.env') === 'production' &&
-            $name === self::DEFAULT_ADMIN_NAME &&
-            $password === self::DEFAULT_ADMIN_PASSWORD;
     }
 }
