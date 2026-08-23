@@ -6,3 +6,8 @@ storage/framework/sessions/**
 storage/framework/views/**
 .git
 .idea
+# Never bake a locally-present .env (real secrets, or leftover dev config)
+# into the image - the entrypoint provisions everything it needs itself,
+# and none of these are read at build or run time.
+.env
+.env.*
