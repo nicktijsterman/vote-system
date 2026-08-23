@@ -1,3 +1,4 @@
+@layer components {
 .vote-radio {
     @apply hidden;
 }
@@ -12,4 +13,5 @@
 
 .vote-radio-label--selected > span {
     @apply opacity-100;
+}
 }

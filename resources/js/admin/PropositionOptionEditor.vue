@@ -1,6 +1,6 @@
 <script>
-import GridOptionEditor from './GridOptionEditor'
-import ListOptionEditor from './ListOptionEditor'
+import GridOptionEditor from './GridOptionEditor.vue'
+import ListOptionEditor from './ListOptionEditor.vue'
 
 export default {
     components: {

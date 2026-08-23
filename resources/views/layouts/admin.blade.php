@@ -8,8 +8,7 @@
     @auth('web-admin')
         <meta name='auth-token' content='{{ auth('web-admin')->user()->api_token }}' />
     @endauth
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-    <script defer src="{{ mix('js/app.js') }}" nonce="{{ csp_nonce('script') }}"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <x-custom-styling />
     <x-websocket-config />
 </head>

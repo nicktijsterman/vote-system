@@ -1,3 +1,4 @@
+@layer components {
 /*
  * Basic inputs
  */
@@ -100,4 +101,5 @@
 
 .radio-input--invalid::before {
     @apply border-failure;
+}
 }

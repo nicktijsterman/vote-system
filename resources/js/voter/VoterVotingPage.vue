@@ -18,8 +18,8 @@
 <script>
 import AppError, { ValidationError } from '../shared/errors'
 import echo from '../shared/websockets'
-import PropositionForm from './PropositionForm'
-import IllTeamWork from '../shared/IllTeamWork'
+import PropositionForm from './PropositionForm.vue'
+import IllTeamWork from '../shared/IllTeamWork.vue'
 import VotingService from './VotingService'
 
 export default {
@@ -55,7 +55,7 @@ export default {
             .private('propositions')
             .listen('PropositionChange', this.handlePropositionChange)
     },
-    beforeDestroy() {
+    beforeUnmount() {
         echo()
             .private('propositions')
             .stopListening('PropositionChange', this.handlePropositionChange)

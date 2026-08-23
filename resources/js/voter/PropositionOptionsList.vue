@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ListOptionItem from './ListOptionItem'
+import ListOptionItem from './ListOptionItem.vue'
 
 export default {
     components: { ListOptionItem },

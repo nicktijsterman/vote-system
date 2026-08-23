@@ -67,7 +67,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - run: npm ci
-      - run: npm run production
+      - run: npm run build
 
   test-backend:
     name: Test backend

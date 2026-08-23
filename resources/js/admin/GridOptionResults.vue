@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import GridOptionResultsRow from './GridOptionResultsRow'
+import GridOptionResultsRow from './GridOptionResultsRow.vue'
 
 export default {
     components: { GridOptionResultsRow },

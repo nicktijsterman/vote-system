@@ -8,8 +8,7 @@
     @auth('web-voter')
         <meta name='auth-token' content='{{ auth('web-voter')->user()->token }}' />
     @endauth
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}"  nonce="{{ csp_nonce('style') }}"/>
-    <script defer src="{{ mix('js/app.js') }}" nonce="{{ csp_nonce('script') }}"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <x-custom-styling />
     <x-websocket-config />
 </head>

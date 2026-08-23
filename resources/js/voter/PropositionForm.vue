@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import AppBanner from '../shared/AppBanner'
-import PropositionOptionsGrid from './PropositionOptionsGrid'
-import PropositionOptionsList from './PropositionOptionsList'
+import AppBanner from '../shared/AppBanner.vue'
+import PropositionOptionsGrid from './PropositionOptionsGrid.vue'
+import PropositionOptionsList from './PropositionOptionsList.vue'
 
 export default {
     components: {

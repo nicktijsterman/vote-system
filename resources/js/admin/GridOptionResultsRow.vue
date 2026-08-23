@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import ListResultOption from './ListResultOption'
+import ListResultOption from './ListResultOption.vue'
 
 export default {
     components: { ListResultOption },

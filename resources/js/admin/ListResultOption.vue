@@ -6,7 +6,7 @@
         <div
             v-if="showBar"
             class="mr-auto bg-gray-200 absolute left-0 inset-y-0"
-            :style="{ width: `${percentage}%` }"
+            :class="`pct-${Math.round(percentage)}`"
         ></div>
         <div class="z-10 leading-5 absolute px-2 py-1 left-0 inset-y-0">
             {{ title }}: {{ count }}

@@ -1,31 +1,37 @@
-import Vue from 'vue'
-import VueI18n from 'vue-i18n'
+import { createApp, defineAsyncComponent } from 'vue'
+import { createI18n } from 'vue-i18n'
 import { APP_LOCALE } from './shared/constants'
 
-Vue.use(VueI18n)
-
 const locale = APP_LOCALE
-const i18n = new VueI18n({ locale })
+const i18n = createI18n({ legacy: false, locale, messages: {} })
 
 import(`../lang/${locale}.json`).then((messages) => {
-    i18n.setLocaleMessage(locale, messages)
+    i18n.global.setLocaleMessage(locale, messages.default ?? messages)
 })
 
-new Vue({
-    i18n,
-    el: '#app',
+const app = createApp({
     components: {
-        LiveApplicationControls: () =>
-            import('./admin/LiveApplicationControls'),
-        PropositionOptionEditor: () =>
-            import('./admin/PropositionOptionEditor'),
-        VoterManagementPage: () => import('./admin/VoterManagementPage'),
-        ListResultOption: () => import('./admin/ListResultOption'),
+        LiveApplicationControls: defineAsyncComponent(() =>
+            import('./admin/LiveApplicationControls.vue')
+        ),
+        PropositionOptionEditor: defineAsyncComponent(() =>
+            import('./admin/PropositionOptionEditor.vue')
+        ),
+        VoterManagementPage: defineAsyncComponent(() =>
+            import('./admin/VoterManagementPage.vue')
+        ),
+        ListResultOption: defineAsyncComponent(() =>
+            import('./admin/ListResultOption.vue')
+        ),
 
-        TokenInput: () => import('./voter/TokenInput'),
-        VoterVotingPage: () => import('./voter/VoterVotingPage'),
+        TokenInput: defineAsyncComponent(() =>
+            import('./voter/TokenInput.vue')
+        ),
+        VoterVotingPage: defineAsyncComponent(() =>
+            import('./voter/VoterVotingPage.vue')
+        ),
 
-        IllVote: () => import('./shared/IllVote'),
+        IllVote: defineAsyncComponent(() => import('./shared/IllVote.vue')),
     },
     data() {
         return {
@@ -34,3 +40,6 @@ new Vue({
         }
     },
 })
+
+app.use(i18n)
+app.mount('#app')

@@ -1,16 +1,16 @@
-@import '~tailwindcss/base.css';
-@import '~tailwindcss/components.css';
-
 @import './badge.css';
 @import './banner.css';
 @import './card.css';
 @import './header.css';
 @import './headings.css';
 @import './input.css';
+@import './percentage-width.css';
 @import './tables.css';
 @import './vote.css';
 
-@import '~tailwindcss/utilities.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .background--login {
     @apply bg-cover bg-center;

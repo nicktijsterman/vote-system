@@ -1,3 +1,4 @@
+@layer components {
 .header {
     @apply flex justify-between mb-6 border-b items-center px-8 h-20;
 }
@@ -18,4 +19,5 @@
 
 .header-nav > a {
     @apply mx-2 uppercase;
+}
 }

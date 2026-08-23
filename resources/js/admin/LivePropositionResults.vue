@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import GridOptionResults from './GridOptionResults'
-import ListOptionResults from './ListOptionResults'
+import GridOptionResults from './GridOptionResults.vue'
+import ListOptionResults from './ListOptionResults.vue'
 
 export default {
     components: {

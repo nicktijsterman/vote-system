@@ -1,3 +1,4 @@
+@layer components {
 .banner {
     @apply bg-gray-100 text-gray-900 px-8 py-2 text-lg whitespace-pre-line break-words;
 }
@@ -22,4 +23,5 @@
     .banner {
         @apply rounded-lg;
     }
+}
 }

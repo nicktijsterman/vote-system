@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import TokenCard from './TokenCard'
+import TokenCard from './TokenCard.vue'
 import { printTokens } from './TokenPrintService'
 
 export default {

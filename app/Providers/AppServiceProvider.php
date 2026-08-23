@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\AppConfig;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
@@ -46,6 +47,12 @@ class AppServiceProvider extends ServiceProvider
 
     private function bootWebApplication(): void
     {
+        // The app enforces CSP via bepsvpt/secure-headers, not Laravel's own
+        // nonce generator - csp_nonce('script') is what actually ends up in
+        // the CSP header, so Vite's own tags must reuse that same value
+        // rather than generating an independent nonce the header wouldn't allow.
+        Vite::useCspNonce(csp_nonce('script'));
+
         if (Str::startsWith(config('app.url'), 'https://')) {
             URL::forceScheme('https');
         }

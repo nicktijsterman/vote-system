@@ -3,7 +3,7 @@
         <input
             autocomplete="off"
             class="input input--token"
-            v-mask="'NNNN NNNN NNNN NNNN'"
+            v-maska="'**** **** **** ****'"
             maxlength="19"
             name="token"
             placeholder="ABCD 2345 WXYZ 6789"
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import { VueMaskDirective } from 'v-mask'
+import { vMaska } from 'maska/vue'
 
 export default {
     directives: {
-        mask: VueMaskDirective,
+        maska: vMaska,
     },
 
     data() {

@@ -43,8 +43,8 @@
 
 <script>
 import echo from '../shared/websockets'
-import LiveControlActions from './LiveControlActions'
-import LivePropositionResults from './LivePropositionResults'
+import LiveControlActions from './LiveControlActions.vue'
+import LivePropositionResults from './LivePropositionResults.vue'
 import PropositionService from './PropositionService'
 
 export default {
@@ -86,7 +86,7 @@ export default {
         echo().private('results').listen('VoterVoted', this.handleResultsChange)
         this.refreshPropositionResults()
     },
-    beforeDestroy() {
+    beforeUnmount() {
         echo()
             .private('controls')
             .stopListening('PropositionChange', this.handlePropositionChange)

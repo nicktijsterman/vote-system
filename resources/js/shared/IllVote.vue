@@ -57,12 +57,12 @@
         />
         <path
             opacity=".1"
-            style="isolation: isolate"
+            class="isolate-path"
             d="M422.116 307.116v.292l-8.729 5.842-15.585 10.428H273.41l36.296-16.562h112.41z"
         />
         <path
             opacity=".1"
-            style="isolation: isolate"
+            class="isolate-path"
             d="M422.116 307.116v93.732l-24.314-.703.176-76.644 15.409-10.251 8.588-6.134h.141z"
         />
         <path
@@ -103,4 +103,8 @@
 export default {}
 </script>
 
-<style scoped></style>
+<style scoped>
+.isolate-path {
+    isolation: isolate;
+}
+</style>
