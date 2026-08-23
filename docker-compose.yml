@@ -40,10 +40,14 @@ x-app-environment: &app-environment
 
 services:
   vote-system:
-    # Change "main" to use a specific version.
-    # You can see all tags at https://github.com/users/WesleyKlop/packages/container/vote-system/versions
-    image: ghcr.io/wesleyklop/vote-system:main
-    #build: .
+    # This fork doesn't publish its own prebuilt image yet, so this builds
+    # from source by default - ghcr.io/wesleyklop/vote-system:main is the
+    # ORIGINAL upstream project's image, not this fork's code, and using it
+    # here would silently deploy the wrong (unmodernized) application.
+    # Once/if this fork publishes its own image, switch back to `image:`
+    # and comment out `build:` to pull it instead of building locally.
+    image: vote-system:local
+    build: .
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost']
       interval: 30s
@@ -63,10 +67,10 @@ services:
         condition: service_healthy
     restart: on-failure
   vote-system-ws:
-    # Change "main" to use a specific version.
-    # You can see all tags at https://github.com/users/WesleyKlop/packages/container/vote-system/versions
-    image: ghcr.io/wesleyklop/vote-system:main
-    #build: .
+    # Same image as vote-system above (same build context, same tag) - see
+    # the comment there.
+    image: vote-system:local
+    build: .
     command:
       - php
       - artisan

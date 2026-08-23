@@ -1,7 +1,7 @@
 # Vote System
 
-![Automated tests](https://github.com/WesleyKlop/vote-system/workflows/Automated%20tests/badge.svg?event=push)
-![Deliver](https://github.com/WesleyKlop/vote-system/workflows/Deliver/badge.svg)
+![Automated tests](https://github.com/nicktijsterman/vote-system/workflows/Automated%20tests/badge.svg?event=push)
+![Deliver](https://github.com/nicktijsterman/vote-system/workflows/Deliver/badge.svg)
 
 ![Question example](.github/screenshots/banner.png)
 
@@ -16,17 +16,22 @@ host; for real production scale, use Swarm, K8s, or similar.
 
 ### Deployment with docker-compose (recommended)
 
-Download just [docker-compose.yml](./docker-compose.yml) - no `.env` file needed - and run:
+This fork doesn't publish its own prebuilt image (the original upstream project's published image
+at `ghcr.io/wesleyklop/vote-system` is *its* code, not this fork's - using it here would silently
+deploy the wrong, unmodernized application), so `docker-compose.yml` builds from source. That means
+you need the whole repo, not just the compose file:
 
 ```bash
+git clone <this-repo-url>
+cd vote-system
 docker compose up -d
 ```
 
-That's it. On first boot this initializes the database, generates an application key, an admin
-password and a websockets secret, runs the migrations, and starts the application. The generated
-admin password is printed once to the container log (`docker compose logs vote-system`) and then
-persisted, so restarts keep working without you having to save it manually. The app is reachable at
-[localhost:8080](http://localhost:8080).
+No `.env` file needed. On first boot this builds the image, initializes the database, generates an
+application key, an admin password and a websockets secret, runs the migrations, and starts the
+application. The generated admin password is printed once to the container log
+(`docker compose logs vote-system`) and then persisted, so restarts keep working without you having
+to save it manually. The app is reachable at [localhost:8080](http://localhost:8080).
 
 To customize anything (admin credentials, ports, `APP_URL` for a real domain, etc.), drop a `.env`
 file next to `docker-compose.yml` - Compose picks it up automatically - or export the same variables
@@ -35,17 +40,23 @@ list of what's configurable; anything you don't set falls back to a working defa
 
 ### Manual docker deployment
 
-The easiest way to use and deploy this application is using Docker.
-You can grab the latest version from this GitHub or use a certain tag by viewing the [ghcr versions page](https://github.com/users/WesleyKlop/packages/container/vote-system/versions).
+Build the image yourself from a clone of this repo (there's no published image for this fork - see
+above):
 
-Provide config as `-e` flags matching [.env.example](./.env.example), or bind-mount a real `.env`
-file the same way as before:
+```bash
+git clone <this-repo-url>
+cd vote-system
+docker build -t vote-system:local .
+```
+
+Then provide config as `-e` flags matching [.env.example](./.env.example), or bind-mount a real
+`.env` file:
 
 ```bash
 ENV_FILE=/abs/path/to/your/.env-file
-IMAGE=ghcr.io/wesleyklop/vote-system:main
+IMAGE=vote-system:local
 WEB_PORT=8080 # Make sure this matches the port in APP_URL
-docker run --rm -d -p 6001:6001 -v $ENV_FILE:/app/.env $IMAGE php artisan websockets:serve
+docker run --rm -d -p 6001:8080 -v $ENV_FILE:/app/.env $IMAGE php artisan reverb:start --host=0.0.0.0 --port=8080
 docker run --rm -d -p $WEB_PORT:80 -v $ENV_FILE:/app/.env $IMAGE
 ```
 
