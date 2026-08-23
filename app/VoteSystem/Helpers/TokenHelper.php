@@ -26,7 +26,7 @@ final class TokenHelper
      * All characters that can be used for a token.
      * Basically all number and letters except for 0, 1, I, L and O.
      */
-    public const KEY_SPACE = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
+    public const string KEY_SPACE = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
 
     /**
      * @throws Exception

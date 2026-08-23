@@ -9,8 +9,8 @@ use Illuminate\Support\Str;
 
 class ManageUserCommand extends Command
 {
-    final public const DEFAULT_ADMIN_NAME = 'admin';
-    final public const DEFAULT_ADMIN_PASSWORD = 'password';
+    final public const string DEFAULT_ADMIN_NAME = 'admin';
+    final public const string DEFAULT_ADMIN_PASSWORD = 'password';
     /**
      * The name and signature of the console command.
      *

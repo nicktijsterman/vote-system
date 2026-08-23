@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 
-return static function (RectorConfig $config): void {
-    $config->sets([
-        \Rector\Set\ValueObject\LevelSetList::UP_TO_PHP_81,
-    ]);
-
-    $config->paths([
+return RectorConfig::configure()
+    ->withPaths([
         __DIR__ . '/app',
         __DIR__ . '/bootstrap/app.php',
         __DIR__ . '/config',
@@ -21,5 +17,8 @@ return static function (RectorConfig $config): void {
         __DIR__ . '/tests',
         __DIR__ . '/ecs.php',
         __DIR__ . '/rector.php',
-    ]);
-};
+    ])
+    // No arguments: picks up the PHP version from composer.json, so this
+    // stays correct automatically on future PHP bumps instead of needing
+    // to be kept in sync by hand.
+    ->withPhpSets();

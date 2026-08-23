@@ -14,13 +14,13 @@ env:
 jobs:
   lint:
     name: Lint code
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -31,17 +31,17 @@ jobs:
 
   lint-php:
     name: Lint PHP Code
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@2.19.1
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
           coverage: xdebug
       - id: composer-cache
         run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v3
+          echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -54,13 +54,13 @@ jobs:
   build-frontend:
     name: Build frontend
     needs: [lint]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -72,10 +72,10 @@ jobs:
   test-backend:
     name: Test backend
     needs: [lint, lint-php]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     services:
       database:
-        image: postgres:13
+        image: postgres:16
         ports:
           - 5432:5432
         env:
@@ -85,16 +85,16 @@ jobs:
         volumes:
           - db-data:/var/lib/postgresql/data
     steps:
-      - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@2.19.1
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
           coverage: xdebug
           extensions: mbstring, intl, pdo-pgsql
       - id: composer-cache
         run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v3
+          echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -104,5 +104,19 @@ jobs:
           cp .env.ci .env
           composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
           php artisan key:generate
+      # The Blade views under test render @vite() tags, which fail hard
+      # (ViteManifestNotFoundException) without a real built manifest -
+      # phpunit's feature tests genuinely need this, not just a style nit.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm ci
+      - run: npm run build
       - run: vendor/bin/psalm
       - run: vendor/bin/phpunit --do-not-cache-result --no-interaction --disallow-todo-tests
