@@ -2,7 +2,7 @@
 
 use GuzzleHttp\Psr7\Uri;
 
-$appUri = (new Uri(env('APP_URL')));
+$appUri = (new Uri(env('APP_URL', 'http://localhost')));
 $isHttps = $appUri->getScheme() === 'https';
 
 return [

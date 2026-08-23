@@ -10,41 +10,36 @@ especially during these stay-at-home times can be useful in enabling digital vot
 
 ## Usage / Deployment
 
-### Deployment with docker-compose
+This fork ships as scaffolding for a self-hosted deployment, not a managed service - you're
+responsible for running and securing your own instance. Docker Compose here is meant for a single
+host; for real production scale, use Swarm, K8s, or similar.
 
-Docker compose should **not** be used for production! Use Swarm, K8s or similar instead.
+### Deployment with docker-compose (recommended)
 
-The simplest way to run the application with almost zero configuration is by using docker-compose.
-Just download the [docker-compose.yml](./docker-compose.yml) and [example environment file](./.env.example),
-edit the environment file, verify the docker-compose file configuration and then run the following command:
+Download just [docker-compose.yml](./docker-compose.yml) - no `.env` file needed - and run:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
-This will automatically initialize a database, create an application key, run the migrations,
-set up the admin user and start the application! By default, the application will be reachable via [localhost:8080]
-(http://localhost:8080).
+That's it. On first boot this initializes the database, generates an application key, an admin
+password and a websockets secret, runs the migrations, and starts the application. The generated
+admin password is printed once to the container log (`docker compose logs vote-system`) and then
+persisted, so restarts keep working without you having to save it manually. The app is reachable at
+[localhost:8080](http://localhost:8080).
+
+To customize anything (admin credentials, ports, `APP_URL` for a real domain, etc.), drop a `.env`
+file next to `docker-compose.yml` - Compose picks it up automatically - or export the same variables
+in your shell before running `docker compose up`. See [.env.example](./.env.example) for the full
+list of what's configurable; anything you don't set falls back to a working default.
 
 ### Manual docker deployment
 
 The easiest way to use and deploy this application is using Docker.
 You can grab the latest version from this GitHub or use a certain tag by viewing the [ghcr versions page](https://github.com/users/WesleyKlop/packages/container/vote-system/versions).
 
-### Prerequisites
-
-Before you get ready to start the docker image, you should set up the following:
-
--   A database like Postgres or MySQL.
-    -   I recommend Postgres because that is what I personally use and also what is used by the CI pipeline.
--   Copy the [.env](./.env.example) file from this repository, save it somewhere and fill in your database credentials.
-    The application will automatically configure an application key if it could not be found on first run.
-    You will also need to configure the websockets secret. (`PUSHER_APP_SECRET`)
-
-### Using
-
-You can now run the following two commands to start the websockets server and the webserver.  
-You can modify the below environment variables.
+Provide config as `-e` flags matching [.env.example](./.env.example), or bind-mount a real `.env`
+file the same way as before:
 
 ```bash
 ENV_FILE=/abs/path/to/your/.env-file
@@ -54,7 +49,11 @@ docker run --rm -d -p 6001:6001 -v $ENV_FILE:/app/.env $IMAGE php artisan websoc
 docker run --rm -d -p $WEB_PORT:80 -v $ENV_FILE:/app/.env $IMAGE
 ```
 
-I would recommend using the docker-compose file instead.
+You'll also need a Postgres (recommended) or MySQL database reachable from the container - the
+docker-compose path provisions one for you automatically.
+
+The docker-compose path above is simpler and recommended unless you have a specific reason not to
+use it.
 
 ## Screenshots
 

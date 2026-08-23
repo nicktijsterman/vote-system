@@ -85,7 +85,7 @@ return [
             'enable_client_messages' => false,
             'enable_statistics' => true,
             'allowed_origins' => [
-                (new Uri(env('APP_URL')))->getHost(),
+                (new Uri(env('APP_URL', 'http://localhost')))->getHost(),
             ],
         ],
     ],

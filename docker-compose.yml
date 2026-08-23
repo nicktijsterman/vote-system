@@ -1,5 +1,34 @@
 version: '3.5'
 
+# No .env file is required. All non-secret config below has a working
+# default and can be overridden via a real .env file next to this one
+# (docker compose reads it automatically) or your shell environment.
+# APP_KEY / the admin password / the websockets secret are generated on
+# first boot and persisted on the "secrets" volume - see .docker/entrypoint.sh.
+
+x-app-environment: &app-environment
+  APP_NAME: 'Vote System'
+  APP_ENV: ${APP_ENV:-production}
+  APP_DEBUG: ${APP_DEBUG:-false}
+  APP_URL: ${APP_URL:-http://localhost:8080}
+  VS_ADMIN_NAME: ${VS_ADMIN_NAME:-}
+  DB_CONNECTION: pgsql
+  DB_HOST: postgres
+  DB_PORT: 5432
+  DB_DATABASE: ${POSTGRES_DB:-votesystem}
+  DB_USERNAME: ${POSTGRES_USER:-votesystem}
+  DB_PASSWORD: ${POSTGRES_PASSWORD:-votesystem}
+  DB_FOREIGN_KEYS: 'true'
+  LOG_CHANNEL: stack
+  BROADCAST_DRIVER: pusher
+  CACHE_DRIVER: file
+  QUEUE_CONNECTION: sync
+  SESSION_DRIVER: database
+  SESSION_LIFETIME: '120'
+  PUSHER_APP_ID: vote-system
+  PUSHER_APP_KEY: vote-system
+  TRUSTED_PROXY_LIST: ${TRUSTED_PROXY_LIST:-}
+
 services:
   vote-system:
     # Change "main" to use a specific version.
@@ -11,17 +40,18 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    environment: *app-environment
     volumes:
       - ./storage/app:/app/storage/app
       - ./storage/logs:/app/storage/logs
-      - ./.env:/app/.env
+      - secrets:/app/storage/secrets
     networks:
       - net
     ports:
       - '8080:80'
     depends_on:
-      - postgres
-      - vote-system-ws
+      postgres:
+        condition: service_healthy
     restart: on-failure
   vote-system-ws:
     # Change "main" to use a specific version.
@@ -32,16 +62,28 @@ services:
       - php
       - artisan
       - websockets:serve
+    environment: *app-environment
+    volumes:
+      - secrets:/app/storage/secrets
     networks:
       - net
     ports:
       - '6001:6001'
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     restart: on-failure
   postgres:
-    image: postgres:13
-    env_file: .env
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-votesystem}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-votesystem}
+      POSTGRES_DB: ${POSTGRES_DB:-votesystem}
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-votesystem}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -55,3 +97,4 @@ networks:
 
 volumes:
   db-data:
+  secrets:
