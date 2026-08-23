@@ -356,7 +356,12 @@ return [
         'connect-src' => [
             'self' => true,
             'allow' => [
-                'ws://' . $appUri->getHost() . ':6001',
+                // Must match config/reverb.php's 'public' section, which is what the
+                // browser's Echo client actually connects to (see
+                // resources/views/components/websocket-config.blade.php).
+                (env('REVERB_PUBLIC_SCHEME', env('REVERB_SCHEME', 'https')) === 'https' ? 'wss://' : 'ws://') .
+                    env('REVERB_PUBLIC_HOST', $appUri->getHost()) . ':' .
+                    env('REVERB_PUBLIC_PORT', env('REVERB_PORT', 443)),
             ]
         ],
 
