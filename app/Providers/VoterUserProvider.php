@@ -59,4 +59,13 @@ class VoterUserProvider implements UserProvider
 
         return hash_equals($user->getAuthPassword(), $token);
     }
+
+    /**
+     * {@inheritdoc}
+     * Voters authenticate by a raw token, not a hashed password - nothing to rehash.
+     */
+    public function rehashPasswordIfRequired(Authenticatable $user, array $credentials, bool $force = false): void
+    {
+        //
+    }
 }
