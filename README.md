@@ -14,13 +14,13 @@ votes to classroom polls.
 This is a fork of the original [Vote System](https://github.com/WesleyKlop/vote-system) project, brought
 up to current dependency versions and hardened for self-hosting:
 
-- **Modernized stack** - Laravel 8 → 13, PHP 8.0 → 8.3, Vue 2 → 3, Laravel Mix → Vite, and the
-  unmaintained `beyondcode/laravel-websockets` swapped for Laravel Reverb.
-- **Security fixes** - rate-limited login, timing-safe token comparison, a tightened default CORS
-  policy, and no more silently-accepted default admin/database credentials in production - the app now
-  refuses to boot on a placeholder secret and generates a real one instead.
-- **One-command deploy** - `git clone` + `docker compose up` works out of the box: no manual `.env`
-  editing, no hand-picked ports, credentials generated and persisted on first boot.
+-   **Modernized stack** - Laravel 8 → 13, PHP 8.0 → 8.3, Vue 2 → 3, Laravel Mix → Vite, and the
+    unmaintained `beyondcode/laravel-websockets` swapped for Laravel Reverb.
+-   **Security fixes** - rate-limited login, timing-safe token comparison, a tightened default CORS
+    policy, and no more silently-accepted default admin/database credentials in production - the app now
+    refuses to boot on a placeholder secret and generates a real one instead.
+-   **One-command deploy** - `git clone` + `docker compose up` works out of the box: no manual `.env`
+    editing, no hand-picked ports, credentials generated and persisted on first boot.
 
 ## Usage / Deployment
 
@@ -31,7 +31,7 @@ host; for real production scale, use Swarm, K8s, or similar.
 ### Deployment with docker-compose (recommended)
 
 This fork doesn't publish its own prebuilt image (the original upstream project's published image
-at `ghcr.io/wesleyklop/vote-system` is *its* code, not this fork's - using it here would silently
+at `ghcr.io/wesleyklop/vote-system` is _its_ code, not this fork's - using it here would silently
 deploy the wrong, unmodernized application), so `docker-compose.yml` builds from source. That means
 you need the whole repo, not just the compose file:
 

@@ -12,23 +12,23 @@ import(`../lang/${locale}.json`).then((messages) => {
 const app = createApp({
     components: {
         LiveApplicationControls: defineAsyncComponent(() =>
-            import('./admin/LiveApplicationControls.vue')
+            import('./admin/LiveApplicationControls.vue'),
         ),
         PropositionOptionEditor: defineAsyncComponent(() =>
-            import('./admin/PropositionOptionEditor.vue')
+            import('./admin/PropositionOptionEditor.vue'),
         ),
         VoterManagementPage: defineAsyncComponent(() =>
-            import('./admin/VoterManagementPage.vue')
+            import('./admin/VoterManagementPage.vue'),
         ),
         ListResultOption: defineAsyncComponent(() =>
-            import('./admin/ListResultOption.vue')
+            import('./admin/ListResultOption.vue'),
         ),
 
         TokenInput: defineAsyncComponent(() =>
-            import('./voter/TokenInput.vue')
+            import('./voter/TokenInput.vue'),
         ),
         VoterVotingPage: defineAsyncComponent(() =>
-            import('./voter/VoterVotingPage.vue')
+            import('./voter/VoterVotingPage.vue'),
         ),
 
         IllVote: defineAsyncComponent(() => import('./shared/IllVote.vue')),

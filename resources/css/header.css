@@ -1,23 +1,23 @@
 @layer components {
-.header {
-    @apply flex justify-between mb-6 border-b items-center px-8 h-20;
-}
-
-@screen sm {
     .header {
-        @apply px-0;
+        @apply flex justify-between mb-6 border-b items-center px-8 h-20;
     }
-}
 
-.header-title {
-    @apply font-bold text-lg uppercase text-primary;
-}
+    @screen sm {
+        .header {
+            @apply px-0;
+        }
+    }
 
-.header-nav {
-    @apply flex items-center justify-end flex-1;
-}
+    .header-title {
+        @apply font-bold text-lg uppercase text-primary;
+    }
 
-.header-nav > a {
-    @apply mx-2 uppercase;
-}
+    .header-nav {
+        @apply flex items-center justify-end flex-1;
+    }
+
+    .header-nav > a {
+        @apply mx-2 uppercase;
+    }
 }

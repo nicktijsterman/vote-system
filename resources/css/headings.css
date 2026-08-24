@@ -1,9 +1,9 @@
 @layer components {
-.title {
-    @apply text-2xl leading-8 font-bold;
-}
+    .title {
+        @apply text-2xl leading-8 font-bold;
+    }
 
-.sub-title {
-    @apply text-lg text-gray-800;
-}
+    .sub-title {
+        @apply text-lg text-gray-800;
+    }
 }
