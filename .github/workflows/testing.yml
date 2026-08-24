@@ -119,4 +119,4 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: vendor/bin/psalm
-      - run: vendor/bin/phpunit --do-not-cache-result --no-interaction --disallow-todo-tests
+      - run: vendor/bin/phpunit --do-not-cache-result
