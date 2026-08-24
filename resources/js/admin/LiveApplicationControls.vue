@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { markRaw } from 'vue'
 import echo from '../shared/websockets'
 import LiveControlActions from './LiveControlActions.vue'
 import LivePropositionResults from './LivePropositionResults.vue'
@@ -71,9 +72,8 @@ export default {
         return {
             propositionId: this.initialPropositionId,
             propositions: this.initialPropositions,
-            propositionService: new PropositionService(
-                this.$root.token,
-                this.routes,
+            propositionService: markRaw(
+                new PropositionService(this.$root.token, this.routes),
             ),
             results: {},
             resultsUpdatedAt: null,
@@ -113,7 +113,7 @@ export default {
             if (idx === -1) {
                 this.propositions.push(proposition)
             } else {
-                this.$set(this.propositions, idx, proposition)
+                this.propositions[idx] = proposition
             }
         },
         handleResultsChange({ results, timestamp }) {
@@ -133,9 +133,9 @@ export default {
             this.resultsUpdatedAt = timestamp
         },
         addVote(p, h, v) {
-            this.$set(this.results, p, this.results[p] ?? {})
-            this.$set(this.results[p], h, this.results[p][h] ?? {})
-            this.$set(this.results[p][h], v, (this.results[p][h][v] ?? 0) + 1)
+            this.results[p] ??= {}
+            this.results[p][h] ??= {}
+            this.results[p][h][v] = (this.results[p][h][v] ?? 0) + 1
         },
         toProposition(delta) {
             const nextPropositionIdx = this.propositionIdx + delta
@@ -175,7 +175,7 @@ export default {
 
             const { results, timestamp } =
                 await this.propositionService.fetchResults(propositionId)
-            this.$set(this.results, propositionId, results)
+            this.results[propositionId] = results
             this.resultsUpdatedAt = timestamp
         },
     },

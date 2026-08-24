@@ -31,8 +31,8 @@ class VoterController extends Controller
         // Delete all existing tokens, which as a side effect deletes all answers given by a token
         Voter::query()->delete();
 
-        $tokens = TokenHelper::generateTokens($request->get('amount'));
-        $tokens = LazyCollection::make($tokens)
+        $amount = $request->get('amount');
+        $tokens = LazyCollection::make(fn () => TokenHelper::generateTokens($amount))
             ->map(fn (string $token) => [
                 'token' => $token,
                 'id' => Str::uuid(),

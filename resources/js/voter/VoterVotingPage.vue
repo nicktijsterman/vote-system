@@ -76,7 +76,7 @@ export default {
             const option = this.proposition.options.find(
                 (option) => option.id === horizontalId,
             )
-            this.$set(option, 'selected', verticalId)
+            option.selected = verticalId
         },
         async submitAnswers() {
             const propositionId = this.proposition.id
