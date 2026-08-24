@@ -12,6 +12,9 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
+/**
+ * @implements WithMapping<VoterPropositionOption>
+ */
 class PropositionResultExport implements
     FromQuery,
     WithTitle,
@@ -27,6 +30,7 @@ class PropositionResultExport implements
     /**
      * @return Builder<VoterPropositionOption>
      */
+    #[\Override]
     public function query(): Builder
     {
         return VoterPropositionOption::with(
@@ -42,6 +46,7 @@ class PropositionResultExport implements
             ->where('proposition_id', $this->propositionId);
     }
 
+    #[\Override]
     public function title(): string
     {
         return Str::substr($this->propositionId, 0, 31);
@@ -50,6 +55,7 @@ class PropositionResultExport implements
     /**
      * @param VoterPropositionOption $row
      */
+    #[\Override]
     public function map($row): array
     {
         return [
@@ -60,6 +66,7 @@ class PropositionResultExport implements
         ];
     }
 
+    #[\Override]
     public function headings(): array
     {
         return ['Proposition', 'Token', 'Horizontal', 'Vertical'];

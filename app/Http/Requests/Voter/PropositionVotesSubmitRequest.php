@@ -2,8 +2,13 @@
 
 namespace App\Http\Requests\Voter;
 
+use App\Models\Proposition;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property-read Proposition $proposition Resolved via Request::__get()'s fallback to the
+ *     route-bound {proposition} parameter - not a declared property, just Laravel magic.
+ */
 class PropositionVotesSubmitRequest extends FormRequest
 {
     /**

@@ -13,6 +13,7 @@ class Authenticate extends Middleware
      *
      * @param Request $request
      */
+    #[\Override]
     protected function redirectTo($request, array $guards = []): ?string
     {
         if (!$request->expectsJson()) {
@@ -24,6 +25,7 @@ class Authenticate extends Middleware
         return null;
     }
 
+    #[\Override]
     protected function unauthenticated($request, array $guards)
     {
         throw new AuthenticationException(

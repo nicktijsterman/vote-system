@@ -14,6 +14,7 @@ abstract class AbstractModel extends Model
     /**
      * Boot the model.
      */
+    #[\Override]
     public static function boot()
     {
         parent::boot();

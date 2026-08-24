@@ -29,9 +29,17 @@ class VoterPropositionOptionFactory
                     $horizontal,
                     $vertical
                 ),
-                default => throw new Exception("Invalid type \"$proposition->type\"")
+                default => self::rejectType($proposition->type)
             }
         );
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected static function rejectType(string $type): never
+    {
+        throw new Exception("Invalid type \"$type\"");
     }
 
     protected static function mapRow(
@@ -40,7 +48,7 @@ class VoterPropositionOptionFactory
         string $horizontal,
         string $vertical
     ): VoterPropositionOption {
-        return VoterPropositionOption::make([
+        return new VoterPropositionOption([
             'voter_id' => $voterId,
             'proposition_id' => $propositionId,
             'horizontal_option_id' => $horizontal,

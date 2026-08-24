@@ -21,6 +21,7 @@ class PropositionChange implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      */
+    #[\Override]
     public function broadcastOn(): array
     {
         return [

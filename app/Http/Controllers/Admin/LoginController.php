@@ -41,6 +41,8 @@ class LoginController extends Controller
         return redirect()->route('admin.login.show');
     }
 
+    /** @psalm-suppress PossiblyUnusedParam $request is required by AuthenticatesUsers'
+     * hook signature; this override doesn't need it. */
     protected function authenticated(Request $request, User $user): void
     {
         $user->update([

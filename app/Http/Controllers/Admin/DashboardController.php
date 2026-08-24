@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\VoteSystem\Repositories\PropositionRepository;
 use Illuminate\Contracts\View\View;
 
+/** @psalm-suppress UnusedClass Resolved by Laravel's router via an array-callable route
+ * binding in routes/web.php, invisible to Psalm's static usage analysis. */
 class DashboardController extends Controller
 {
     public function __construct(

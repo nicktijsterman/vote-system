@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * @property string $name
+ * @property string|null $default
+ * @property string|null $value
+ */
 class AppConfig extends Model
 {
     public $incrementing = false;
@@ -20,6 +25,9 @@ class AppConfig extends Model
         return $entry->value();
     }
 
+    /**
+     * @return Collection<string, string|null>
+     */
     public static function dictionary(): Collection
     {
         return self::all()->mapWithKeys(

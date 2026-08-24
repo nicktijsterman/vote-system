@@ -30,6 +30,7 @@ class Voter extends AbstractModel implements
         return $query->whereNotNull('used_at');
     }
 
+    #[\Override]
     public function getAuthPassword(): string
     {
         return $this->token;

@@ -28,8 +28,11 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
+    #[\Override]
     public function register()
     {
+        /** @psalm-suppress UnusedClosureParam Empty scaffolding hook for future custom
+         * exception reporting - $e is intentionally unused for now. */
         $this->reportable(function (Throwable $e) {
             //
         });

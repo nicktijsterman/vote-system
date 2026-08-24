@@ -14,6 +14,8 @@ use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
+/** @psalm-suppress UnusedClass Resolved by Laravel's router via Route::resource() in
+ * routes/web.php, invisible to Psalm's static usage analysis. */
 class PropositionController extends Controller
 {
     public function __construct(

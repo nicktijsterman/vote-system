@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        /** @psalm-suppress UnusedClosureParam Both params are required by Auth::provider()'s
+         * callback signature; VoterUserProvider needs neither. */
         Auth::provider('voter', fn ($app, array $config) => new VoterUserProvider());
     }
 }

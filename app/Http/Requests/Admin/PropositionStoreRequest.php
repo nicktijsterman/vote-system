@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property string[][] options
+ * @property array{horizontal: array<string, ?string>, vertical: array<string, ?string>} options
  */
 class PropositionStoreRequest extends FormRequest
 {

@@ -7,6 +7,8 @@ use App\Http\Requests\Admin\ResultExportRequest;
 use App\VoteSystem\Exports\ResultsExport;
 use Illuminate\Contracts\Support\Responsable;
 
+/** @psalm-suppress UnusedClass Resolved by Laravel's router via an array-callable route
+ * binding in routes/web.php, invisible to Psalm's static usage analysis. */
 class ResultExportController extends Controller
 {
     public function index(ResultsExport $export, ResultExportRequest $request): Responsable

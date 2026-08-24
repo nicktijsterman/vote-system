@@ -8,6 +8,8 @@ use App\Models\AppConfig;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
+/** @psalm-suppress UnusedClass Resolved by Laravel's router via an array-callable route
+ * binding in routes/web.php, invisible to Psalm's static usage analysis. */
 class AppConfigController extends Controller
 {
     public function index(): View

@@ -14,6 +14,7 @@ class ResultsExport implements WithMultipleSheets, Responsable
     private string $fileName = 'results.xlsx';
     private ?string $propositionId = null;
 
+    #[\Override]
     public function sheets(): array
     {
         if ($this->propositionId !== null) {

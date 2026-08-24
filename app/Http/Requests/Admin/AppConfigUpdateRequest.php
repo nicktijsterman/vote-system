@@ -13,8 +13,7 @@ class AppConfigUpdateRequest extends FormRequest
     public function rules(): array
     {
         $rules = [];
-        $appConfig = AppConfig::dictionary();
-        foreach ($appConfig as $name => $value) {
+        foreach (AppConfig::dictionary()->keys() as $name) {
             $rules[$name] = ['present', 'nullable', 'string'];
         }
 

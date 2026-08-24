@@ -20,5 +20,10 @@
         <LessSpecificReturnStatement errorLevel="suppress"/>
         <MoreSpecificImplementedParamType errorLevel="suppress" />
         <ImplementedReturnTypeMismatch errorLevel="suppress" />
+        <!-- Both of these have a high false-positive rate in a Laravel app: Psalm can't see
+             methods called from .blade.php templates (never parsed) or constructors resolved
+             implicitly by the service container, and flags them as unused. -->
+        <PossiblyUnusedMethod errorLevel="suppress" />
+        <PossiblyUnusedReturnValue errorLevel="suppress" />
     </issueHandlers>
 </psalm>

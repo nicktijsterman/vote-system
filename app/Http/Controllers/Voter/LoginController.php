@@ -72,6 +72,8 @@ class LoginController extends Controller
         return redirect()->route('voter.index');
     }
 
+    /** @psalm-suppress PossiblyUnusedParam $request is required by AuthenticatesUsers'
+     * hook signature; this override doesn't need it. */
     protected function authenticated(Request $request, Voter $voter): void
     {
         // Set the used at property if not set yet

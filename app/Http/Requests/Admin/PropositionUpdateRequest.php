@@ -4,6 +4,9 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property array{horizontal: array<string, ?string>, vertical: array<string, ?string>} options
+ */
 class PropositionUpdateRequest extends FormRequest
 {
     use ValidatesPropositions;

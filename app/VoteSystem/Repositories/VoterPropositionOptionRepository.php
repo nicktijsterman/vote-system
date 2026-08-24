@@ -19,6 +19,9 @@ class VoterPropositionOptionRepository
             ->every(fn (bool $result) => $result === true);
 
         if ($success === true) {
+            /** @psalm-suppress InvalidArgument VoterVoted's $results is an untemplated
+             * Collection - Psalm narrows ->values() to Collection<int,mixed>&static, which it
+             * won't accept for the untemplated property type even though it's a valid Collection. */
             event(new VoterVoted($voterPropositionOptions->values()));
         }
 

@@ -12,6 +12,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Str;
 
+/** @psalm-suppress UnusedClass Resolved by Laravel's router via an array-callable route
+ * binding in routes/web.php, invisible to Psalm's static usage analysis. */
 class VoterController extends Controller
 {
     public function index(): View
