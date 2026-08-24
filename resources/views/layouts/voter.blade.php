@@ -18,7 +18,6 @@
     <div class='flex-1'>
     @section('content')@show
     </div>
-    <x-footer />
 </div>
 </body>
 </html>

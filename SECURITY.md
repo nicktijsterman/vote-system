@@ -2,8 +2,8 @@
 
 ## Supported Versions
 
-As this is a prerelease, no versions are currently really supported. I'll do my best to fix all issues that come to light.
+This is a fork maintained on a best-effort basis; only the latest commit on the default branch is supported.
 
 ## Reporting a Vulnerability
 
-If you happen to find a vulnerability, please email me, Wesley Klop at wesley19097@gmail.com where I'll try to get back to you ASAP.
+If you find a vulnerability in this fork, please email git@tijsterman.dev and I'll do my best to get back to you promptly.

@@ -5,8 +5,22 @@
 
 ![Question example](.github/screenshots/banner.png)
 
-Vote System is a general purpose voting application that,
-especially during these stay-at-home times can be useful in enabling digital voting.
+Vote System is a general purpose voting application: voters sign in with a one-time token and answer
+propositions, admins manage propositions and watch results update live. Useful for anything from board
+votes to classroom polls.
+
+## About this fork
+
+This is a fork of the original [Vote System](https://github.com/WesleyKlop/vote-system) project, brought
+up to current dependency versions and hardened for self-hosting:
+
+- **Modernized stack** - Laravel 8 → 13, PHP 8.0 → 8.3, Vue 2 → 3, Laravel Mix → Vite, and the
+  unmaintained `beyondcode/laravel-websockets` swapped for Laravel Reverb.
+- **Security fixes** - rate-limited login, timing-safe token comparison, a tightened default CORS
+  policy, and no more silently-accepted default admin/database credentials in production - the app now
+  refuses to boot on a placeholder secret and generates a real one instead.
+- **One-command deploy** - `git clone` + `docker compose up` works out of the box: no manual `.env`
+  editing, no hand-picked ports, credentials generated and persisted on first boot.
 
 ## Usage / Deployment
 
@@ -76,8 +90,9 @@ Contributing guidelines can be found in [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Vote system, please send an e-mail to Wesley Klop via [wesley19097@gmail.com](mailto:wesley19097@gmail.com). All security vulnerabilities will be promptly addressed.
+See [SECURITY.md](./SECURITY.md) for how to report a vulnerability in this fork.
 
 ## License
 
-The Vote system is open-sourced software licensed under the [GPLv3](https://opensource.org/licenses/GPL-3.0).
+Vote System is open-sourced software licensed under the [GPLv3](https://opensource.org/licenses/GPL-3.0).
+This fork remains under the same license as the original project.

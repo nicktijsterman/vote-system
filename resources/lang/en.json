@@ -1,6 +1,5 @@
 {
     "Vote System": "Vote System",
-    "Made with love": "Made with &#9825; by <a href='https://wesley.io' class='text-primary'>Wesley Klop</a>",
 
     "Voters": "Voters",
     "Your token": "Your token: <span class='font-mono'>:token</span>",

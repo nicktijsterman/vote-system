@@ -17,7 +17,6 @@
     <x-header-admin />
     @section('content')@show
     <div class="flex-1"></div>
-    <x-footer />
 </div>
 </body>
 </html>

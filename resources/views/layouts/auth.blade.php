@@ -10,7 +10,6 @@
 <body class="background--login">
 <div id="app" class="container mx-auto min-h-screen flex flex-col items-center justify-center">
     @section('content')@show
-    <x-footer />
 </div>
 </body>
 </html>
