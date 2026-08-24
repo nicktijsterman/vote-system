@@ -18,7 +18,6 @@ class VoterVoted implements ShouldBroadcast
      * see either consumer. */
     public float $timestamp;
 
-    /** @psalm-suppress PossiblyUnusedProperty See $timestamp above - same reason. */
     public function __construct(public Collection $results)
     {
         $this->timestamp = microtime(true);

@@ -15,7 +15,7 @@ abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    /** @var Collection<string, mixed> */
+    /** @var Collection<string, string|null> */
     protected Collection $config;
 
     public function __construct()

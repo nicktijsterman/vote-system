@@ -30,9 +30,13 @@ class AppConfig extends Model
      */
     public static function dictionary(): Collection
     {
-        return self::all()->mapWithKeys(
-            fn ($row) => [$row->name => $row->value ?: $row->default]
-        );
+        $entries = [];
+
+        foreach (self::all() as $row) {
+            $entries[$row->name] = $row->value ?: $row->default;
+        }
+
+        return collect($entries);
     }
 
     public function value(): mixed

@@ -25,5 +25,14 @@
              implicitly by the service container, and flags them as unused. -->
         <PossiblyUnusedMethod errorLevel="suppress" />
         <PossiblyUnusedReturnValue errorLevel="suppress" />
+        <!-- VoterVoted::$results is a promoted constructor property; Psalm doesn't honor an
+             inline @psalm-suppress comment on the parameter itself, so it's suppressed here
+             instead. It's genuinely used - serialized into the broadcast payload and read by
+             LiveApplicationControls.vue - Psalm just can't see either consumer. -->
+        <PossiblyUnusedProperty errorLevel="suppress">
+            <errorLevel type="suppress">
+                <file name="app/Events/VoterVoted.php"/>
+            </errorLevel>
+        </PossiblyUnusedProperty>
     </issueHandlers>
 </psalm>

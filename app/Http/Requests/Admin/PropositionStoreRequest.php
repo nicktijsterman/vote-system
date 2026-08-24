@@ -28,16 +28,16 @@ class PropositionStoreRequest extends FormRequest
         ];
     }
 
+    #[\Override]
     public function prepareForValidation()
     {
+        /** @var array{horizontal: array<string, ?string>, vertical: array<string, ?string>} $options */
+        $options = $this->options;
+
         $this->merge([
             'options' => [
-                'horizontal' => $this->rejectNullEntries(
-                    $this->options['horizontal']
-                ),
-                'vertical' => $this->rejectNullEntries(
-                    $this->options['vertical']
-                ),
+                'horizontal' => $this->rejectNullEntries($options['horizontal']),
+                'vertical' => $this->rejectNullEntries($options['vertical']),
             ],
         ]);
     }
