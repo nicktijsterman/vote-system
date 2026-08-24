@@ -8,6 +8,10 @@ on:
     types:
       - created
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   deliver:
     name: Build & Push Docker image
@@ -23,7 +27,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - id: meta
         uses: docker/metadata-action@v5
         with:
